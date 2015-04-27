@@ -188,7 +188,7 @@ var FormWizard = function () {
                     $('#form_wizard_1').find('.button-submit').hide();
                 }
                 Metronic.scrollTo($('.page-title'));
-                
+
             }
 
             // default form wizard
@@ -214,23 +214,7 @@ var FormWizard = function () {
                         return false;
                     }
 
-                    var qu1 = document.querySelector('input[name="Ask1.1_E1"]:checked').value;
-                    var qu2 = document.querySelector('input[name="Ask1.1_E2"]:checked').value;
-                    var qu3 = document.querySelector('input[name="Ask1.1_E3"]:checked').value;
-                    //var qu4 = document.querySelector('input[name="Ask1.1_E4"]:checked').value;
-                    //var qu5 = document.querySelector('input[name="Ask1.1_E5"]:checked').value;
                     
-
-                    if (qu1 === 'c'){
-                        //removeClass("alert alert-success")
-                        //$("tab-pane active").removeClass("alert alert-success");
-                         //success.show();
-                        //error.hide();
-                    }else{
-                        //success.hide();
-                        //error.show();
-
-                    }
                        // var qu1 = document.querySelector('input[name="Ask1.1_E1"]:checked').value;
                         // alert('Η σωστή απάντηση είναι: ' + qu1);
                     
@@ -255,9 +239,28 @@ var FormWizard = function () {
                 }
             });
 
+                    
+
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
-                alert('Finished! Hope you like it :)');
+                    var qu1 = document.querySelector('input[name="Ask1.1_E1"]:checked').value;
+                    var qu2 = document.querySelector('input[name="Ask1.1_E2"]:checked').value;
+                    var qu3 = document.querySelector('input[name="Ask1.1_E3"]:checked').value;
+                    var qu4 = document.querySelector('input[name="Ask1.1_E4"]:checked').value;
+                    var qu5 = document.querySelector('input[name="Ask1.1_E5"]:checked').value;
+                    
+                     var score = 0;
+                    if (qu1 === 'c' && qu2 ==='b' && qu3 =='c' && qu4 ==='a' && qu5 === 'a'){
+                        //removeClass("alert alert-success")
+                        //$("tab-pane active").removeClass("alert alert-success");
+                         success.show();
+                         error.hide();
+                    }else{
+                        success.hide();
+                        error.show();
+
+                    }
+                alert('Tέλος ελπίζουμε να σας άρεσε :)');
             }).hide();
         }
 
