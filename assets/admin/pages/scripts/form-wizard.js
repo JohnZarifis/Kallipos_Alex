@@ -18,6 +18,12 @@ var FormWizard = function () {
             var form = $('#submit_form');
             var error = $('.alert-danger', form);
             var success = $('.alert-success', form);
+            var error1 = $('.one', form);
+            var error2 = $('.two', form);
+            var error3 = $('.three', form);
+            var error4 = $('.four', form);
+            var error5 = $('.five', form);
+
 
             form.validate({
                 doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
@@ -83,6 +89,21 @@ var FormWizard = function () {
                     'payment[]': {
                         required: true,
                         minlength: 1
+                    },
+                    Ask1_1_E1:{
+                       required: true 
+                    },
+                    Ask1_1_E2:{
+                       required: true 
+                    },
+                    Ask1_1_E3:{
+                       required: true 
+                    },
+                    Ask1_1_E4:{
+                       required: true 
+                    },
+                    Ask1_1_E5:{
+                       required: true 
                     }
                 },
 
@@ -90,6 +111,21 @@ var FormWizard = function () {
                     'payment[]': {
                         required: "Please select at least one option",
                         minlength: jQuery.validator.format("Please select at least one option")
+                    },
+                    Ask1_1_E1:{
+                        required: "Παρακαλώ επιλέξτε μια απάντηση"
+                    },
+                    Ask1_1_E2:{
+                        required: "Παρακαλώ επιλέξτε μια απάντηση"
+                    },
+                    Ask1_1_E3:{
+                        required: "Παρακαλώ επιλέξτε μια απάντηση"
+                    },
+                    Ask1_1_E4:{
+                        required: "Παρακαλώ επιλέξτε μια απάντηση"
+                    },
+                    Ask1_1_E5:{
+                        required: "Παρακαλώ επιλέξτε μια απάντηση"
                     }
                 },
 
@@ -99,13 +135,13 @@ var FormWizard = function () {
                     } else if (element.attr("name") == "payment[]") { // for uniform checkboxes, insert the after the given container
                         error.insertAfter("#form_payment_error");
                     } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
+                        error.insertAfter("#form_gender_error"); // for other inputs, just perform default behavior
                     }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit   
                     success.hide();
-                    error.show();
+                    error.show(); //john
                     Metronic.scrollTo(error, -200);
                 },
 
@@ -165,7 +201,7 @@ var FormWizard = function () {
                 var total = navigation.find('li').length;
                 var current = index + 1;
                 // set wizard title
-                $('.step-title', $('#form_wizard_1')).text('Ερώτηση ' + (index + 1) + ' of ' + total);
+                $('.step-title', $('#form_wizard_1')).text('Ερώτηση ' + (index + 1) + ' από ' + total);
                 // set done steps
                 jQuery('li', $('#form_wizard_1')).removeClass("done");
                 var li_list = navigation.find('li');
@@ -192,6 +228,7 @@ var FormWizard = function () {
             }
 
             // default form wizard
+            var score = 0;
             $('#form_wizard_1').bootstrapWizard({
                 'nextSelector': '.button-next',
                 'previousSelector': '.button-previous',
@@ -206,15 +243,61 @@ var FormWizard = function () {
                     handleTitle(tab, navigation, clickedIndex);
                     */
                 },
+
                 onNext: function (tab, navigation, index) {
                     success.hide();
                     error.hide();
+                    error1.hide();
+                    error2.hide();
+                    error3.hide();
+                    error4.hide();
+                    error5.hide();
+                    var currentTab = index;
 
                     if (form.valid() == false) {
                         return false;
                     }
 
-                    
+                    switch (currentTab) {
+                        case 1:
+                            var qu1 = document.querySelector('input[name="Ask1_1_E1"]:checked').value;
+                            if(qu1 != 'c'){ 
+                                            error1.show(); 
+                                            return false;}
+                            else{score++;}
+                            break;
+                        case 2:
+                            var qu2 = document.querySelector('input[name="Ask1_1_E2"]:checked').value;
+                            if(qu2 != 'b'){ 
+                                            error2.show();
+                                            //error1.hide();
+                                            return false;}
+                            else{score++;}
+                            break;
+                        case 3:
+                            var qu3 = document.querySelector('input[name="Ask1_1_E3"]:checked').value;
+                            if(qu3 != 'c'){ 
+                                            error3.show();
+                                            //error1.hide();
+                                            //error2.hide(); 
+                                            return false;}
+                            else{score++;}
+                            break;
+                        case 4:
+                            var qu4 = document.querySelector('input[name="Ask1_1_E4"]:checked').value;
+                            if(qu4 != 'c'){ 
+                                            error4.show();
+                                            //error1.hide();
+                                            //error2.hide();
+                                            //error3.hide(); 
+                                            return false;}
+                            else{score++;}
+                            
+                            break;
+                        default:
+                            console.log('wrong step');
+
+                    }
                        // var qu1 = document.querySelector('input[name="Ask1.1_E1"]:checked').value;
                         // alert('Η σωστή απάντηση είναι: ' + qu1);
                     
@@ -243,24 +326,20 @@ var FormWizard = function () {
 
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
-                    var qu1 = document.querySelector('input[name="Ask1.1_E1"]:checked').value;
-                    var qu2 = document.querySelector('input[name="Ask1.1_E2"]:checked').value;
-                    var qu3 = document.querySelector('input[name="Ask1.1_E3"]:checked').value;
-                    var qu4 = document.querySelector('input[name="Ask1.1_E4"]:checked').value;
-                    var qu5 = document.querySelector('input[name="Ask1.1_E5"]:checked').value;
                     
-                     var score = 0;
-                    if (qu1 === 'c' && qu2 ==='b' && qu3 =='c' && qu4 ==='a' && qu5 === 'a'){
+                    
+                    var qu5 = document.querySelector('input[name="Ask1_1_E5"]:checked').value;
+                    if(qu5 === 'b'){
                         //removeClass("alert alert-success")
                         //$("tab-pane active").removeClass("alert alert-success");
                          success.show();
-                         error.hide();
+                         error5.hide();
                     }else{
                         success.hide();
-                        error.show();
+                        error5.show();
 
                     }
-                alert('Tέλος ελπίζουμε να σας άρεσε :)');
+                //alert('Tέλος ελπίζουμε να σας άρεσε :) ' + qu1 + ''+ score);
             }).hide();
         }
 
